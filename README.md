@@ -11,8 +11,8 @@ Just download and run it as root:
 ```
 $ git clone https://github.com/boubakr92/fedora-post-installation.git
 $ cd fedora-post-installation/
-$ chmod +x fedora18-postinstall.sh
-$ sudo ./fedora18-postinstall.sh
+$ chmod +x fedora18-postinstall
+$ sudo ./fedora18-postinstall
 ```
 
 Contribute ?
