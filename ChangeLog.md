@@ -17,3 +17,11 @@ Fedora Post installation - ChangeLog
 * Gimp installation added
 * Inkscape installation added
 * Blender installation added
+
+**July 09, 2013:**
+* KDE Desktop installation added
+* LibreOffice installation added
+* Gnome Classic Mode installation added
+* Clementine Media Player installation added
+* Gimp Extra Package installation added
+* OpenShot installation added

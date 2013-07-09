@@ -1,14 +1,14 @@
  #!/usr/bin/env bash
 #
-# Post installation script for Fedora 18 Sperical Cow
+# Post installation script for Fedora 19
 #
-# Syntax: sudo ./fedora18-postinstall
+# Syntax: sudo ./fedora-postinstall
 #
 # Boubakr NOUR <n.boubakr@gmail.com>
 # Distributed under the GPL version 3 license
 
 
-VERSION='0.1';
+VERSION='0.19';
 
 isRoot() {
 	# Check if the current user is root or not !
@@ -119,6 +119,11 @@ installRPMFusion() {
 	yum install -y --nogpg rpmfusion*
 }
 
+installLibreOffice() {
+	echo "[!] Installing LibreOffice Suite..."
+	yum  install -y libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw
+}
+
 installArabicFonts() {
 	echo "[!] Installing Arabic support for LibbreOffice and Arabic fonts..."
 	yum  install -y --nogpg http://ojuba.org/downloads/releases/16/Everything/i386/os/Packages/amiri-fonts-0.100-2.oj16.fc16.noarch.rpm http://ojuba.org/downloads/releases/16/Everything/i386/os/Packages/arabeyes-core-fonts-2.0.1-4.oj5.noarch.rpm http://ojuba.org/downloads/releases/16/Everything/i386/os/Packages/arabeyes-decorative-fonts-2.0.1-4.oj5.noarch.rpm http://ojuba.org/downloads/releases/16/Everything/i386/os/Packages/kacst-fonts-2.01-3.oj5.noarch.rpm http://ojuba.org/downloads/releases/16/Everything/i386/os/Packages/kfgqpc-fonts-0.08-1.oj4.noarch.rpm http://ojuba.org/downloads/releases/16/Everything/i386/os/Packages/msttcore-fonts-2.0-3.noarch.rpm
@@ -128,11 +133,23 @@ installArabicFonts() {
 installProprietaryCodecs() {
 	echo "[!] Installing Proprietary Codecs..."
 	yum install -y gstreamer-* gstreamer1-* ffmpeg x264 unzip unrar p7zip --exclude=*devel,*doc*
+	# If you want to play DVDs ^_^
+	yum install -y libdvdread libdvdnav lsdvd libdvdcss
 }
 
 installVLC() {
 	echo "[!] Installing VLC Media Player..."
 	yum install -y vlc
+}
+
+installClementine() {
+	echo "[!] Installing Clementine..."
+	yum install -y qtwebkit clementine
+}
+
+installOpenShot() {
+	echo "[!] Installing OpenShot..."
+	yum install -y qtwebkit openshot
 }
 
 installFlashPlayer() {
@@ -199,6 +216,11 @@ installGimp() {
 	yum install -y gimp
 }
 
+installGimpExtraPackage() {
+	echo "[!] Installing Extra Package..."
+	yum install -y gimp-ufraw
+}
+
 installInkscape() {
 	echo "[!] Installing Inkscape..."
 	yum install -y inkscape
@@ -249,10 +271,21 @@ $SKYPE_HOME/skype --resources=$SKYPE_HOME $*
 EOF
 }
 
+installGnomeClassicMode() {
+	echo "[!] Installing Gnome Classic Mode..."
+	yum install -y gnome-classic-session
+}
+
 installGeneralUtilities() {
 	echo "[!] Installing General Utilities..."
 	yum install -y yumex cups-pdf terminator nautilus-open-terminal vim-enhanced gnome-tweak-tool
 }
+
+installKDEDesktop() {
+	echo "[!] Installing KDE Desktop..."
+	yum groupinstall -y @kde-desktop
+}
+
 
 installCinnamonDesktop() {
 	echo "[!] Installing Cinnamon Desktop..."
@@ -342,6 +375,24 @@ if [ isRoot ]; then
 	fi
 
 	clear
+	read -p "[-] Do you want to install Clementine Media Player ? (y/N) " answer
+	if [ "$answer" = 'y' ]; then
+		installClementine
+	fi
+
+	clear
+	read -p "[-] Do you want to install OpenShot Video Editor ? (y/N) " answer
+	if [ "$answer" = 'y' ]; then
+		installOpenShot
+	fi
+
+	clear
+	read -p "[-] Do you want to install LibreOffice Suite ? (y/N) " answer
+	if [ "$answer" = 'y' ]; then
+		installLibreOffice
+	fi
+
+	clear
 	read -p "[-] Do you want to install Arabic fonts ? (y/N) " answer
 	if [ "$answer" = 'y' ]; then
 		installArabicFonts
@@ -421,6 +472,12 @@ if [ isRoot ]; then
 	fi
 
 	clear
+	read -p "[-] Do you want to install Gimp Extra Package ? (y/N) " answer
+	if [ "$answer" = 'y' ]; then
+		installGimpExtraPackage
+	fi
+
+	clear
 	read -p "[-] Do you want to install Inkscape ? (y/N) " answer
 	if [ "$answer" = 'y' ]; then
 		installInkscape
@@ -433,6 +490,12 @@ if [ isRoot ]; then
 	fi
 
 	clear
+	read -p "[-] Do you want to install Gnome Classic Mode ? (y/N) " answer
+	if [ "$answer" = 'y' ]; then
+		installGnomeClassicMode
+	fi
+
+	clear
 	read -p "[-] Do you want to install General Utilities ? (y/N) " answer
 	if [ "$answer" = 'y' ]; then
 		installGeneralUtilities
@@ -442,6 +505,12 @@ if [ isRoot ]; then
 	read -p "[-] Do you want to install Cinnamon Desktop ? (y/N) " answer
 	if [ "$answer" = 'y' ]; then
 		installCinnamonDesktop
+	fi
+
+	clear
+	read -p "[-] Do you want to install KDE Desktop ? (y/N) " answer
+	if [ "$answer" = 'y' ]; then
+		installKDEDesktop
 	fi
 
 	clear
